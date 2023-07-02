@@ -132,16 +132,11 @@ public class EntryScreen extends JFrame {
         saveBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (timeSheetRecorderlist.size() == 4){
-                    System.out.println("contem 4");
-                    rowIndex ++;
-                }
-                System.out.println(timeSheetRecorderlist);
-                if (rowIndex > 0){
+                if (!timeSheetRecorderlist.isEmpty()) {
                     timeSheetManager.createWorkbookAndSheet();
                     timeSheetManager.exportToTable("PontoEletrônico.xlsx");
                     JOptionPane.showMessageDialog(null, "Dados salvos com sucesso!");
-                } else{
+                } else {
                     JOptionPane.showMessageDialog(null, "Nenhum registro para salvar. Adicione registros primeiro.");
                 }
 

@@ -13,7 +13,7 @@
     </properties>
 
     <dependencies>
-        <!-- Dependência do Apache POI para trabalhar com arquivos XLSX -->
+        <!-- Dependências do Apache POI para trabalhar com arquivos XLSX -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
@@ -23,6 +23,13 @@
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
             <version>5.2.3</version>
+        </dependency>
+
+        <!-- Dependências do Log4j2 para logging -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>3.0.0-alpha1</version>
         </dependency>
     </dependencies>
 
