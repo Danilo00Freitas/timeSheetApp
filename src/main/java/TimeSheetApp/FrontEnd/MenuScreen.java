@@ -16,11 +16,12 @@ public class MenuScreen extends JFrame {
         //inicializando screen manager
         this.screenManager = screenManager;
 
-        // Criando amação principal
+        // Criando armação principal
         setTitle("TimeSheet Menu Screen");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 800);
         setLocationRelativeTo(null); // Centralizar a janela na tela
+        setResizable(false);
 
         // Criando painel principal onde os botões vão ficar
         mainPanel = new JPanel();
@@ -39,7 +40,7 @@ public class MenuScreen extends JFrame {
         changeEntryBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "O botão de alterar marcação foi acionado");
+                screenManager.showChangeEntryScreen();
             }
         });
 
