@@ -18,10 +18,11 @@ public class EntryScreen extends JFrame {
     private JPanel timerPane;
     private JTextField dateTextF;
     private JTextField timetextF;
-    private TimeSheetManager timeSheetManager;
+    private TimeSheetManager timeSheetManager = new TimeSheetManager();
     private List<String> timeSheetRecorderlist = new ArrayList<>();
     private ScreenManager screenManager;
     private int rowIndex = 0;
+
 
     public EntryScreen(ScreenManager screenManager) {
         // Inicializando o screemanager
@@ -132,14 +133,15 @@ public class EntryScreen extends JFrame {
         saveBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!timeSheetRecorderlist.isEmpty()) {
-                    timeSheetManager.createWorkbookAndSheet();
-                    timeSheetManager.exportToTable("PontoEletrônico.xlsx");
-                    JOptionPane.showMessageDialog(null, "Dados salvos com sucesso!");
+                if (timeSheetRecorderlist.size() == 4) {
+                    if (timeSheetManager.verifyFileExistance()) {
+                        timeSheetManager.createWorkbookAndSheet();
+                        JOptionPane.showMessageDialog(null, "Uma nova planilha foi criada");
+                    }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Nenhum registro para salvar. Adicione registros primeiro.");
+                    timeSheetRecorderlist.clear();
+                    JOptionPane.showMessageDialog(null, "ERRO! Você não inseriu as 4 batidas de ponto. Tente novamente!");
                 }
-
             }
         });
 

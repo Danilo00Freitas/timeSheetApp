@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="TImeSheet" target="1.5" />
+      <module name="TImeSheet" target="20" />
     </bytecodeTargetLevel>
   </component>
 </project>

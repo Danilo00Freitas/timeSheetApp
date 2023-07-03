@@ -2,6 +2,9 @@ package TimeSheetApp.BackEnd;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import javax.swing.*;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,6 +14,9 @@ public class TimeSheetManager {
     private List<TimeSheetRecorder> timeSheetRecorderList; // Declaração da lista
     private Workbook workbook;
     private Sheet sheet;
+    private String excelDirPath;
+    private String fileName;
+    private String filePath;
 
     public TimeSheetManager() {
         timeSheetRecorderList = new ArrayList<>(); // Inicialização da lista
@@ -18,7 +24,7 @@ public class TimeSheetManager {
 
     public void createWorkbookAndSheet() {
         this.workbook = new XSSFWorkbook();
-        this.sheet = workbook.createSheet("Time sheet register");
+        this.sheet = workbook.createSheet("PontoEletrônico.xlsx");
     }
 
     public void exportToTable(String archiveName) {
@@ -70,6 +76,19 @@ public class TimeSheetManager {
             return newRegister;
         } else {
             return timeSheetRecorderList.get(timeSheetRecorderList.size() - 1);
+        }
+    }
+
+    public boolean verifyFileExistance() {
+        excelDirPath = "/home/danilo/Desktop/estudos/JAVA/TImeSheet";
+        fileName = "PontoEletrônico.xlsx";
+        filePath = excelDirPath + File.separator + fileName;
+        File file = new File(filePath);
+        if (!file.exists()) {
+            createWorkbookAndSheet();
+            return true;
+        }else{
+            return false;
         }
     }
 
