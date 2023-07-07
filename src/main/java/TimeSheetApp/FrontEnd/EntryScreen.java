@@ -78,18 +78,16 @@ public class EntryScreen extends JFrame {
         mainPanel.add(buttonPanel);
 
         // Adicionando ação aos botões
-        timeSheetManager = new TimeSheetManager();
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
         Date currentTime = new Date();
+
+        TimeSheetRecorder recorder = new TimeSheetRecorder();
 
         entryBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String entryTime = timeFormat.format(new Date());
-                TimeSheetRecorder record = new TimeSheetRecorder();
                 timeSheetRecorderlist.add(entryTime);
-                /*record.setEntryTime(entryTime);
-                timeSheetRecorderlist.add(record);*/
                 JOptionPane.showMessageDialog(null, "Batida de entrada às " + entryTime + " adicionada");
             }
         });
@@ -98,10 +96,7 @@ public class EntryScreen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String breakTime = timeFormat.format(new Date());
-                TimeSheetRecorder record = new TimeSheetRecorder();
                 timeSheetRecorderlist.add(breakTime);
-                /*record.setBreakTime(breakTime);
-                timeSheetRecorderlist.add(record);*/
                 JOptionPane.showMessageDialog(null, "Batida de saída para almoço às " + breakTime + " adicionada");
             }
         });
@@ -110,10 +105,7 @@ public class EntryScreen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String returnTime = timeFormat.format(new Date());
-                TimeSheetRecorder record = new TimeSheetRecorder();
                 timeSheetRecorderlist.add(returnTime);
-                /*record.setReturnTime(returnTime);
-                timeSheetRecorderlist.add(record);*/
                 JOptionPane.showMessageDialog(null, "Volta do almoço às " + returnTime + " registrada");
             }
         });
@@ -122,10 +114,7 @@ public class EntryScreen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String exitTime = timeFormat.format(new Date());
-                TimeSheetRecorder record = new TimeSheetRecorder();
                 timeSheetRecorderlist.add(exitTime);
-                /*record.setExitTime(exitTime);
-                timeSheetRecorderlist.add(record);*/
                 JOptionPane.showMessageDialog(null, " Saída registrada às " + exitTime + " registrada");
             }
         });
@@ -133,15 +122,16 @@ public class EntryScreen extends JFrame {
         saveBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //Verificando a exitência da tabela e se a quantidade de marcações é valida
                 if (timeSheetRecorderlist.size() == 4) {
-                    if (timeSheetManager.verifyFileExistance()) {
-                        timeSheetManager.createWorkbookAndSheet();
-                        JOptionPane.showMessageDialog(null, "Uma nova planilha foi criada");
-                    }
-                } else {
+                        JOptionPane.showMessageDialog(null, "Batida de ponto adicionadas a planilha");
+                    }else{
                     timeSheetRecorderlist.clear();
                     JOptionPane.showMessageDialog(null, "ERRO! Você não inseriu as 4 batidas de ponto. Tente novamente!");
                 }
+
+                timeSheetManager.exportToTable();
+                timeSheetRecorderlist.clear();
             }
         });
 

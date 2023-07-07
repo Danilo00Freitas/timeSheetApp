@@ -12,22 +12,44 @@ import java.util.List;
 
 public class TimeSheetManager {
     private List<TimeSheetRecorder> timeSheetRecorderList; // Declaração da lista
-    private Workbook workbook;
     private Sheet sheet;
     private String excelDirPath;
-    private String fileName;
+    private String fileName = "PontoEletrônico.xlsx";
     private String filePath;
 
     public TimeSheetManager() {
         timeSheetRecorderList = new ArrayList<>(); // Inicialização da lista
+            excelDirPath = "/home/danilo/Desktop/estudos/JAVA/TImeSheet";
+            filePath = excelDirPath + File.separator + fileName;
+            File file = new File(filePath);
+            if (!file.exists()) {
+                createWorkbookAndSheet();
+            }
     }
 
     public void createWorkbookAndSheet() {
-        this.workbook = new XSSFWorkbook();
-        this.sheet = workbook.createSheet("PontoEletrônico.xlsx");
+        String[] titles  = {"DATA","ENTRADA","INTERVALO","RETORNO INTERVALO","SAÍDA"};
+        Workbook workbook = new XSSFWorkbook();
+        this.sheet = workbook.createSheet(fileName);
+        Row row = sheet.createRow(0);
+        int titleColum = 0;
+
+        for (int i = 0; i < 5; i++){
+            Cell cell = row.createCell(titleColum);
+            cell.setCellValue(titles[i]);
+            sheet.autoSizeColumn(i);
+            titleColum++;
+        }
+        try (FileOutputStream outputStream = new FileOutputStream(fileName)) {
+            workbook.write(outputStream);
+            workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void exportToTable(String archiveName) {
+    public void exportToTable() {
+
         int rowIndex = 0;
         for (TimeSheetRecorder register : timeSheetRecorderList) {
             Row row = sheet.createRow(rowIndex++);
@@ -36,17 +58,15 @@ public class TimeSheetManager {
             addBreakRegister(row, register);
             addReturnRegister(row, register);
             addExitRegister(row, register);
+
         }
-        try (FileOutputStream fileOut = new FileOutputStream(archiveName)) {
-            workbook.write(fileOut);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
-
     public void addDateRegister(Row row, TimeSheetRecorder register){
+
         Cell dateCell = row.createCell(0);
+        dateCell.setCellValue(register.getDate());
     }
 
     public void addEntryRegister(Row row, TimeSheetRecorder register) {
@@ -79,17 +99,5 @@ public class TimeSheetManager {
         }
     }
 
-    public boolean verifyFileExistance() {
-        excelDirPath = "/home/danilo/Desktop/estudos/JAVA/TImeSheet";
-        fileName = "PontoEletrônico.xlsx";
-        filePath = excelDirPath + File.separator + fileName;
-        File file = new File(filePath);
-        if (!file.exists()) {
-            createWorkbookAndSheet();
-            return true;
-        }else{
-            return false;
-        }
-    }
-
 }
+
