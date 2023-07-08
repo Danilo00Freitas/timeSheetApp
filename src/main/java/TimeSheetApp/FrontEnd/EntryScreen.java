@@ -8,16 +8,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+
 
 public class EntryScreen extends JFrame {
     private JPanel mainPanel;
     private JPanel timerPane;
     private JTextField dateTextF;
     private JTextField timetextF;
-    private TimeSheetManager timeSheetManager;
+    private TimeSheetManager timeSheetManager = new TimeSheetManager();
+    private ArrayList<String> timeSheetRecorderlist = new ArrayList<>();
     private ScreenManager screenManager;
+    private int rowIndex = 0;
+
 
     public EntryScreen(ScreenManager screenManager) {
         // Inicializando o screemanager
@@ -58,8 +63,10 @@ public class EntryScreen extends JFrame {
         JButton exitBtn = new JButton("Saída");
 
         Date currentDate = new Date();
-        SimpleDateFormat dateFormatted = new SimpleDateFormat("dd/MM/yyyy");
-        String stringF = dateFormatted.format(currentDate);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+
+        String stringF = dateFormat.format(currentDate);
         JButton saveBtn = new JButton("Salvar ponto do dia " + stringF);
         JButton returnToMenuBtn = new JButton("Voltar para Menu");
 
@@ -73,43 +80,51 @@ public class EntryScreen extends JFrame {
         mainPanel.add(buttonPanel);
 
         // Adicionando ação aos botões
-        timeSheetManager = new TimeSheetManager();
 
         entryBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "O botão de entrar foi acionado ");
+                String entryTime = timeFormat.format(new Date());
+                timeSheetRecorderlist.add(dateFormat.format(currentDate));
+                timeSheetRecorderlist.add(entryTime);
+                JOptionPane.showMessageDialog(null, "Batida de entrada às " + entryTime + " adicionada");
             }
         });
 
         breakBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "O botão de sair para almoço foi acionado ");
+                String breakTime = timeFormat.format(new Date());
+                timeSheetRecorderlist.add(breakTime);
+                JOptionPane.showMessageDialog(null, "Batida de saída para almoço às " + breakTime + " adicionada");
             }
         });
 
         breakReturnBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "O botão de voltar do almoço foi acionado");
+                String returnTime = timeFormat.format(new Date());
+                timeSheetRecorderlist.add(returnTime);
+                JOptionPane.showMessageDialog(null, "Volta do almoço às " + returnTime + " registrada");
             }
         });
 
         exitBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "O botão de saída foi acionado");
+                String exitTime = timeFormat.format(new Date());
+                timeSheetRecorderlist.add(exitTime);
+                JOptionPane.showMessageDialog(null, " Saída registrada às " + exitTime + " registrada");
             }
         });
 
         saveBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "O botão de salvar foi acionado");
-                /*Eu quero fazer uma lógica que possibilite que o programa analise se todos os dados do dia foram preenchidos,
-                 * Caso sim, o programa estará importando os dados para o excel e atualizando a planilha, se não quero que ele
-                 * retorne qual informação falta ser adicionada*/
+                System.out.println(timeSheetRecorderlist);
+                timeSheetManager.exportToTable(timeSheetRecorderlist);
+                timeSheetRecorderlist.clear();
+
             }
         });
 
@@ -133,7 +148,10 @@ public class EntryScreen extends JFrame {
     // Iniciar o timer para atualizar o campo de texto do horário
     public void initializeUI() {
         PersonalizedTimer localTimer = new PersonalizedTimer(timetextF);
+        timetextF.setEditable(false);
         localTimer.startTimer();
         dateTextF.setText(localTimer.getDate());
+        dateTextF.setEditable(false);
+
     }
 }
