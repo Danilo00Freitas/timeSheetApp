@@ -26,8 +26,6 @@ public class TimeSheetManager {
         excelDirPath = "/home/danilo/Desktop/estudos/JAVA/TImeSheet";
         filePath = excelDirPath + File.separator + fileName;
 
-        this.sheet = createWorkbookAndSheet();
-
         File file = new File(filePath);
         if (file.exists()) {
             try (FileInputStream inputStream = new FileInputStream(file)) {
@@ -36,6 +34,8 @@ public class TimeSheetManager {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        }else{
+            this.sheet = createWorkbookAndSheet();
         }
     }
 
