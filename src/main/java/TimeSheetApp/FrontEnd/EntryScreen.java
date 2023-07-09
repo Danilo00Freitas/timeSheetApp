@@ -124,7 +124,6 @@ public class EntryScreen extends JFrame {
                 System.out.println(timeSheetRecorderlist);
                 timeSheetManager.exportToTable(timeSheetRecorderlist);
                 timeSheetRecorderlist.clear();
-
             }
         });
 

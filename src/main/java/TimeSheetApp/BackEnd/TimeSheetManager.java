@@ -62,22 +62,36 @@ public class TimeSheetManager {
     }
 
     public void exportToTable(ArrayList<String> timeSheetRecorderList) {
-        SimpleDateFormat dateFormatted = new SimpleDateFormat("dd/MM/yyyy");
-        String currentDate = timeSheetRecorderList.get(0);
-        int cellIndex = 0;
-        int rowIndex = this.sheet.getLastRowNum() + 1;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        int rowIndex;
+
+        if (verifyLastEntry(timeSheetRecorderList)) {
+            rowIndex = this.sheet.getLastRowNum();
+        } else {
+            rowIndex = this.sheet.getLastRowNum() + 1;
+        }
 
         Row row = sheet.createRow(rowIndex);
+        int cellIndex = 0;
         for (String item : timeSheetRecorderList) {
             row.createCell(cellIndex).setCellValue(item);
             cellIndex++;
         }
+
         try (FileOutputStream outputStream = new FileOutputStream(filePath)) {
             workbook.write(outputStream);
-        }
-        catch (IOException e) {
-                e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
+
+    public boolean verifyLastEntry(ArrayList<String> timeSheetRecorderList){
+        int lasWrittenRow = this.sheet.getLastRowNum();
+        Row lastRow = this.sheet.getRow(lasWrittenRow);
+        Cell fisrtCell = lastRow.getCell(0);
+        String cellValue = fisrtCell.getStringCellValue();
+        return cellValue.equals(timeSheetRecorderList.get(0));
+    }
 }
+
 
