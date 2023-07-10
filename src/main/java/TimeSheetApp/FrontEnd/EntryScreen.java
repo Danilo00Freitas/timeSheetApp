@@ -87,7 +87,7 @@ public class EntryScreen extends JFrame {
                 String entryTime = timeFormat.format(new Date());
                 timeSheetRecorderlist.add(dateFormat.format(currentDate));
                 timeSheetRecorderlist.add(entryTime);
-                JOptionPane.showMessageDialog(null, "Batida de entrada às " + entryTime + " adicionada");
+                JOptionPane.showMessageDialog(null, "Batida de entrada às " + entryTime + " adicionada.");
             }
         });
 
@@ -96,7 +96,7 @@ public class EntryScreen extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String breakTime = timeFormat.format(new Date());
                 timeSheetRecorderlist.add(breakTime);
-                JOptionPane.showMessageDialog(null, "Batida de saída para almoço às " + breakTime + " adicionada");
+                JOptionPane.showMessageDialog(null, "Batida de saída para almoço às " + breakTime + " adicionada.");
             }
         });
 
@@ -105,7 +105,7 @@ public class EntryScreen extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String returnTime = timeFormat.format(new Date());
                 timeSheetRecorderlist.add(returnTime);
-                JOptionPane.showMessageDialog(null, "Volta do almoço às " + returnTime + " registrada");
+                JOptionPane.showMessageDialog(null, "Volta do almoço às " + returnTime + " registrada.");
             }
         });
 
@@ -114,7 +114,7 @@ public class EntryScreen extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String exitTime = timeFormat.format(new Date());
                 timeSheetRecorderlist.add(exitTime);
-                JOptionPane.showMessageDialog(null, " Saída registrada às " + exitTime + " registrada");
+                JOptionPane.showMessageDialog(null, " Saída registrada às " + exitTime + " registrada.");
             }
         });
 

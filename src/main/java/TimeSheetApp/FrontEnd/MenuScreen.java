@@ -36,7 +36,7 @@ public class MenuScreen extends JFrame {
             }
         });
 
-        JButton changeEntryBtn = new JButton("Alterar marcação de ponto");
+        JButton changeEntryBtn = new JButton("Corrijir marcação de ponto");
         changeEntryBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
