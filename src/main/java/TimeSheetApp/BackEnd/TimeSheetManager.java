@@ -2,15 +2,12 @@ package TimeSheetApp.BackEnd;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class TimeSheetManager {
@@ -57,8 +54,7 @@ public class TimeSheetManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return sheet; // Retorna a planilha criada
+        return sheet;
     }
 
     public void exportToTable(ArrayList<String> timeSheetRecorderList) {

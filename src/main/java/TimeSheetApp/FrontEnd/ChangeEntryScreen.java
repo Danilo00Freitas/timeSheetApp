@@ -1,7 +1,6 @@
 package TimeSheetApp.FrontEnd;
 
 import TimeSheetApp.BackEnd.ScreenManager;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -19,7 +18,7 @@ public class ChangeEntryScreen extends JFrame {
         setTitle("Alterar marcação de ponto");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 800);
-        setLocationRelativeTo(null); // Centralizar a janela na tela
+        setLocationRelativeTo(null);
         setResizable(false);
 
         // Criar painel principal onde os botões vão ficar
