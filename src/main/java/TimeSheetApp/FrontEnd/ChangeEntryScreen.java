@@ -124,7 +124,6 @@ public class ChangeEntryScreen extends JFrame {
         JButton saveChangesBtn = new JButton("Salvar alterações");
 
 
-
         saveChangesBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

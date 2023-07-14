@@ -20,7 +20,7 @@ public class TimeSheetManager {
 
     public TimeSheetManager() {
         timeSheetRecorderList = new ArrayList<>(); // Inicialização da lista
-        excelDirPath = "/home/danilo/Desktop/estudos/JAVA/TImeSheet";
+        excelDirPath = System.getProperty("user.dir");
         filePath = excelDirPath + File.separator + fileName;
 
         File file = new File(filePath);
