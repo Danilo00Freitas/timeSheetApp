@@ -18,15 +18,16 @@ public class EntryScreen extends JFrame {
     private JPanel timerPane;
     private JTextField dateTextF;
     private JTextField timetextF;
-    private TimeSheetManager timeSheetManager = new TimeSheetManager();
     private ArrayList<String> timeSheetRecorderlist = new ArrayList<>();
     private ScreenManager screenManager;
+    private TimeSheetManager timeSheetManager;
     private int rowIndex = 0;
 
 
-    public EntryScreen(ScreenManager screenManager) {
+    public EntryScreen(ScreenManager screenManager, TimeSheetManager timeSheetManager) {
         // Inicializando o screemanager
         this.screenManager = screenManager;
+        this.timeSheetManager = timeSheetManager;
 
         // Configurar o layout do timerPane como GridLayout com 2 linhas e 1 coluna
         timerPane = new JPanel();

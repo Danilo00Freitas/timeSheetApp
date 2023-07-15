@@ -84,9 +84,25 @@ public class TimeSheetManager {
     public boolean verifyLastEntry(ArrayList<String> timeSheetRecorderList){
         int lasWrittenRow = this.sheet.getLastRowNum();
         Row lastRow = this.sheet.getRow(lasWrittenRow);
-        Cell fisrtCell = lastRow.getCell(0);
-        String cellValue = fisrtCell.getStringCellValue();
+        Cell firstCell = lastRow.getCell(0);
+        String cellValue = firstCell.getStringCellValue();
         return cellValue.equals(timeSheetRecorderList.get(0));
+    }
+
+    public void changeEntry(String date, int index, String value){
+        for (Row row : this.sheet){
+            if (row.getCell(0).toString().equals(date)){
+                row.createCell(index).setCellValue(value);
+                try (FileOutputStream outputStream = new FileOutputStream(filePath)) {
+                    workbook.write(outputStream);
+                    break;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
     }
 }
 

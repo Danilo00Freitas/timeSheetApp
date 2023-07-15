@@ -1,6 +1,8 @@
 package TimeSheetApp.FrontEnd;
 
 import TimeSheetApp.BackEnd.ScreenManager;
+import TimeSheetApp.BackEnd.TimeSheetManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -8,10 +10,13 @@ import java.awt.event.*;
 public class ChangeEntryScreen extends JFrame {
     private JPanel mainPanel;
     private ScreenManager screenManager;
+    private TimeSheetManager timeSheetManager;
+    private int index = 0;
 
-    public ChangeEntryScreen(ScreenManager screenManager) {
+    public ChangeEntryScreen(ScreenManager screenManager, TimeSheetManager timeSheetManager) {
         // Inicializando o screemanager
         this.screenManager = screenManager;
+        this.timeSheetManager = timeSheetManager;
 
         // Criar armação principal
         setTitle("Alterar marcação de ponto");
@@ -72,27 +77,62 @@ public class ChangeEntryScreen extends JFrame {
         //opções de marcação
 
         JRadioButton entryBtn = new JRadioButton("Entrada");
+        entryBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                index = 1;
+            }
+        });
+
         JRadioButton breakBtn = new JRadioButton("Saída Intervalo");
+        String excelDirPath = "/home/danilo/Desktop/estudos/JAVA/TImeSheet";
+        breakBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                index = 2;
+            }
+        });
+
         JRadioButton breakReturnBtn = new JRadioButton("Retorno intervalo");
-        JRadioButton exit = new JRadioButton("Saída");
+        breakReturnBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                index = 3;
+            }
+        });
+
+        JRadioButton exitBtn = new JRadioButton("Saída");
+        exitBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                index = 4;
+            }
+        });
 
         ButtonGroup buttonGroup = new ButtonGroup();
         buttonGroup.add(entryBtn);
         buttonGroup.add(breakBtn);
         buttonGroup.add(breakReturnBtn);
-        buttonGroup.add(exit);
+        buttonGroup.add(exitBtn);
 
         mainPanel.add(entryBtn);
         mainPanel.add(breakBtn);
         mainPanel.add(breakReturnBtn);
-        mainPanel.add(exit);
+        mainPanel.add(exitBtn);
 
         //Save Changes Button
         JButton saveChangesBtn = new JButton("Salvar alterações");
+
+
+
         saveChangesBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String changeDate = dateToChangeTxt.getText();
+                String changeTime = timeToChangeTxt.getText();
                 JOptionPane.showMessageDialog(null, "As alterações foram salvas.");
+                System.out.println(index);
+                timeSheetManager.changeEntry(changeDate,index,changeTime);
             }
         });
 
