@@ -123,8 +123,16 @@ public class EntryScreen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println(timeSheetRecorderlist);
-                timeSheetManager.exportToTable(timeSheetRecorderlist);
-                timeSheetRecorderlist.clear();
+                if(timeSheetRecorderlist.size() != 5){
+                    JOptionPane.showMessageDialog(null, "ERRO! Quantidade de batidas de ponto incorretas!\n Insira as batidas novamente");
+                    timeSheetRecorderlist.clear();
+
+                }else{
+                    JOptionPane.showMessageDialog(null,"Batidas exportadas para a planilha com sucesso!");
+                    timeSheetManager.exportToTable(timeSheetRecorderlist);
+                    timeSheetRecorderlist.clear();
+                }
+
             }
         });
 
